@@ -1,7 +1,8 @@
 # lua-msvc
-Sample Makefile for NMake
 
-This repository contains a Makefile to use with Visual Studio (or Command Line Tools) for statically building Lua on Windows. The Makefile must be used from a _preconfigured Command Prompt_ (like one installed with the Command Line Tools for Visual C++).
+## Sample Makefile for NMake
+
+This repository contains a Makefile to use with _Microsoft Visual Studio_ (or Command Line Tools) for statically building Lua on Windows. The Makefile must be used from a __preconfigured Command Prompt__ (like one installed with the Command Line Tools for Visual C++).
 
 ## Basic usage (for Lua 5.3.5):
 
