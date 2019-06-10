@@ -36,7 +36,6 @@ clean:
     @del /F $(LUA_NAME) $(LUA_DEPS) $(LUAC_NAME) $(LUAC_DEPS)
     @del /F $(LUA_LIB_NAME) $(LUA_LIB_DEPS)
     @del /F $(LUA_CORE_DEPS)
-    @del /F /Q *.exp
 
 install: all
     @mkdir "$(BINDIR)"
