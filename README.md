@@ -6,7 +6,7 @@ This repository contains a Makefile to use with _Microsoft Visual Studio_ (or Co
 
 ## Basic usage (for Lua 5.3.5):
 
-Extract lua-5.3.5.tar.gz to lua-5.3.5 and change to that directory. Create a subdirectory named, let's say, msvc (it can have any name). Change to the crated directory (msvc) and copy Makefile here. Then execute:
+Extract lua-5.3.5.tar.gz to lua-5.3.5 and change to that directory. Create a subdirectory named, let's say, msvc (it can have any name). Change to the created directory (msvc) and copy Makefile here. Then execute:
 
 `make install`
 
