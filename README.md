@@ -16,7 +16,7 @@ at the command prompt. This will install Lua to C:\Lua53 as defined in the Makef
 
 One can make an independent build directory and copy there the Makefile. Then from that directory, execute:
 
-`make install INSTALL_ROOT=%PATH_TO_INSTALL_ROOT% SOURCE_ROOT=%PATH_TO_SOURCE_ROOT%`
+`nmake install INSTALL_ROOT=%PATH_TO_INSTALL_ROOT% SOURCE_ROOT=%PATH_TO_SOURCE_ROOT%`
 
 where PATH_TO_SOURCE_ROOT must contain the path to a valid Lua source tree (containing a src directory) and PATH_TO_INSTALL_ROOT is the desired path for the installed programs.
 
