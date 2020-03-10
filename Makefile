@@ -11,7 +11,7 @@ LUAC_NAME=luac.exe
 
 SOURCE_ROOT=$(MAKEDIR)\..
 
-CFLAGS=/O2 /TC /MD
+CFLAGS=/O2 /TC /MD /DLUA_COMPAT_5_2
 
 LUA_CORE_DEPS=lapi.obj lcode.obj lctype.obj ldebug.obj ldo.obj ldump.obj \
     lfunc.obj lgc.obj llex.obj lmem.obj lobject.obj lopcodes.obj \
@@ -45,14 +45,14 @@ install: all
     @mkdir "$(LIBDIR)"
     @for %%G in ($(TO_LIB)) do copy "%%G" "$(LIBDIR)\%%G"
 
-$(LUA_NAME): $(LUA_DEPS) $(LUA_LIB_NAME)
-    link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_LIB_NAME)
+$(LUA_NAME): $(LUA_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
+    link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
 
-$(LUAC_NAME): $(LUAC_DEPS) $(LUA_LIB_NAME) $(LUA_CORE_DEPS)
-    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_LIB_NAME)
+$(LUAC_NAME): $(LUAC_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
+    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
     
-$(LUA_LIB_NAME): $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
-    lib.exe /OUT:$(LUA_LIB_NAME) $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
+$(LUA_LIB_NAME): $(LUA_LIB_DEPS)
+    lib.exe /OUT:$(LUA_LIB_NAME) $(LUA_LIB_DEPS)
 
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
