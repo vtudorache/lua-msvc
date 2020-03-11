@@ -1,15 +1,16 @@
-INSTALL_ROOT=C:\Lua53
+INSTALL_ROOT=   C:\Lua53
 
-BINDIR=$(INSTALL_ROOT)\bin
-INCLUDEDIR=$(INSTALL_ROOT)\include
-LIBDIR=$(INSTALL_ROOT)\lib
+BINDIR=         $(INSTALL_ROOT)\bin
+INCLUDEDIR=     $(INSTALL_ROOT)\include
+LIBDIR=         $(INSTALL_ROOT)\lib
 
-LUA_NAME=lua.exe
-LUA_LIB_NAME=lua.lib
+LUA_NAME=       lua.exe
+LUA_LIB_NAME=   lua.lib
+LUA_DLL_NAME=   lua53.dll
 
-LUAC_NAME=luac.exe
+LUAC_NAME=      luac.exe
 
-SOURCE_ROOT=$(MAKEDIR)\..
+SOURCE_ROOT=    $(MAKEDIR)\..
 
 CFLAGS=/O2 /TC /MD /DLUA_COMPAT_5_2
 
@@ -30,7 +31,7 @@ TO_BIN=$(LUA_NAME) $(LUAC_NAME)
 TO_INCLUDE=lua.h luaconf.h lualib.h lauxlib.h lua.hpp
 TO_LIB=$(LUA_LIB_NAME)
 
-all: $(LUA_NAME) $(LUAC_NAME) $(LUA_LIB_NAME)
+all: $(LUA_LIB_NAME) $(LUA_NAME) $(LUAC_NAME)
 
 cleanobj:
     @echo Cleaning object files...
@@ -70,6 +71,12 @@ $(LUAC_NAME): $(LUAC_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
     
 $(LUA_LIB_NAME): $(LUA_LIB_DEPS)
     lib.exe /OUT:$(LUA_LIB_NAME) $(LUA_LIB_DEPS)
+
+predll: cleanobj
+    set CLFAGS=$(CFLAGS) /DLUA_BUILD_AS_DLL
+    
+$(LUA_DLL_NAME): predll $(LUA_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
+    link.exe /DLL /IMPLIB:$(LUA_LIB_NAME) /OUT:$(LUA_DLL_NAME) $(LUA_LIB_DEPS)
 
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
