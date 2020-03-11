@@ -75,7 +75,7 @@ $(LUA_LIB_NAME): $(LUA_LIB_DEPS)
 predll: cleanobj
     set CLFAGS=$(CFLAGS) /DLUA_BUILD_AS_DLL
     
-$(LUA_DLL_NAME): predll $(LUA_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
+$(LUA_DLL_NAME): predll $(LUA_LIB_DEPS)
     link.exe /DLL /IMPLIB:$(LUA_LIB_NAME) /OUT:$(LUA_DLL_NAME) $(LUA_LIB_DEPS)
 
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
