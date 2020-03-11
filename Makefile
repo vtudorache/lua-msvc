@@ -32,10 +32,11 @@ TO_LIB=$(LUA_LIB_NAME)
 
 all: $(LUA_NAME) $(LUAC_NAME) $(LUA_LIB_NAME)
 
-clean:
-    @del /F $(LUA_NAME) $(LUA_DEPS) $(LUAC_NAME) $(LUAC_DEPS)
-    @del /F $(LUA_LIB_NAME) $(LUA_LIB_DEPS)
-    @del /F $(LUA_CORE_DEPS)
+cleanobj:
+    @del /F $(LUA_DEPS) $(LUAC_DEPS) $(LUA_LIB_DEPS) $(LUA_CORE_DEPS)
+
+clean: cleanobj
+    @del /F $(LUA_NAME) $(LUAC_NAME) $(LUA_LIB_NAME)
 
 install: all
     @mkdir "$(BINDIR)"
