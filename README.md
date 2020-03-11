@@ -10,7 +10,7 @@ Extract lua-5.3.5.tar.gz to lua-5.3.5 and change to that directory. Next, you ha
 
 `nmake install`
 
-at the command prompt. This will install Lua to C:\Lua53 as defined in the Makefile.
+at the command prompt. This will install Lua to `C:\Lua53` as defined in the Makefile.
 
 ## Advanced usage:
 
