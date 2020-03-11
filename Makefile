@@ -6,7 +6,6 @@ LIBDIR=         $(INSTALL_ROOT)\lib
 
 LUA_NAME=       lua.exe
 LUA_LIB_NAME=   lua.lib
-LUA_DLL_NAME=   lua53.dll
 
 LUAC_NAME=      luac.exe
 
@@ -71,12 +70,6 @@ $(LUAC_NAME): $(LUAC_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
     
 $(LUA_LIB_NAME): $(LUA_LIB_DEPS)
     lib.exe /OUT:$(LUA_LIB_NAME) $(LUA_LIB_DEPS)
-
-predll: cleanobj
-    set CLFAGS=$(CFLAGS) /DLUA_BUILD_AS_DLL
-    
-$(LUA_DLL_NAME): predll $(LUA_LIB_DEPS)
-    link.exe /DLL /IMPLIB:$(LUA_LIB_NAME) /OUT:$(LUA_DLL_NAME) $(LUA_LIB_DEPS)
 
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
