@@ -40,14 +40,6 @@ clean: cleanobj
     @echo Cleaning binaries and libraries...
     @del /F $(LUA_NAME) $(LUAC_NAME) $(LUA_LIB_NAME)
 
-uninstall:
-    @echo Removing binaries...
-    @for %%G in ($(TO_BIN)) do del /F "$(BINDIR)\%%G"
-    @echo Removing headers...
-    @for %%G in ($(TO_INCLUDE)) do del /F "$(INCLUDEDIR)\%%G"
-    @echo Removing libraries...
-    @for %%G in ($(TO_LIB)) do del /F "$(LIBDIR)\%%G"
-
 install: all
     @echo Creating destination directory for binaries...
     @mkdir "$(BINDIR)"
@@ -62,14 +54,14 @@ install: all
     @echo Copying libraries...
     @for %%G in ($(TO_LIB)) do copy /Y "%%G" "$(LIBDIR)\%%G"
 
-$(LUA_NAME): $(LUA_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
-    link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
+$(LUA_NAME): $(LUA_DEPS) $(LUA_LIB_NAME)
+    link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_LIB_NAME)
 
-$(LUAC_NAME): $(LUAC_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
-    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
+$(LUAC_NAME): $(LUAC_DEPS) $(LUA_LIB_NAME)
+    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_LIB_NAME)
     
-$(LUA_LIB_NAME): $(LUA_LIB_DEPS)
-    lib.exe /OUT:$(LUA_LIB_NAME) $(LUA_LIB_DEPS)
+$(LUA_LIB_NAME): $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
+    lib.exe /OUT:$(LUA_LIB_NAME) $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
 
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
