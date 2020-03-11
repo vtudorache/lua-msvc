@@ -33,18 +33,34 @@ TO_LIB=$(LUA_LIB_NAME)
 all: $(LUA_NAME) $(LUAC_NAME) $(LUA_LIB_NAME)
 
 cleanobj:
+    @echo Cleaning object files...
     @del /F $(LUA_DEPS) $(LUAC_DEPS) $(LUA_LIB_DEPS) $(LUA_CORE_DEPS)
 
 clean: cleanobj
+    @echo Cleaning binaries and libraries...
     @del /F $(LUA_NAME) $(LUAC_NAME) $(LUA_LIB_NAME)
 
+uninstall:
+    @echo Removing binaries...
+    @for %%G in ($(TO_BIN)) do del /F "%%G" "$(BINDIR)\%%G"
+    @echo Removing headers...
+    @for %%G in ($(TO_INCLUDE)) do del /F "$(SOURCE_ROOT)\src\%%G" "$(INCLUDEDIR)\%%G"
+    @echo Removing libraries...
+    @for %%G in ($(TO_LIB)) do del /F "%%G" "$(LIBDIR)\%%G"
+
 install: all
+    @echo Creating destination directory for binaries...
     @mkdir "$(BINDIR)"
-    @for %%G in ($(TO_BIN)) do copy "%%G" "$(BINDIR)\%%G"
+    @echo Copying binaries...
+    @for %%G in ($(TO_BIN)) do copy /Y "%%G" "$(BINDIR)\%%G"
+    @echo Creating destination directory for headers...
     @mkdir "$(INCLUDEDIR)"
-    @for %%G in ($(TO_INCLUDE)) do copy "$(SOURCE_ROOT)\src\%%G" "$(INCLUDEDIR)\%%G"
+    @echo Copying headers...
+    @for %%G in ($(TO_INCLUDE)) do copy /Y "$(SOURCE_ROOT)\src\%%G" "$(INCLUDEDIR)\%%G"
+    @echo Creating destination directory for libraries...
     @mkdir "$(LIBDIR)"
-    @for %%G in ($(TO_LIB)) do copy "%%G" "$(LIBDIR)\%%G"
+    @echo Copying libraries...
+    @for %%G in ($(TO_LIB)) do copy /Y "%%G" "$(LIBDIR)\%%G"
 
 $(LUA_NAME): $(LUA_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
     link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_NAME)
