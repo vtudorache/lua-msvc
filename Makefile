@@ -42,11 +42,11 @@ clean: cleanobj
 
 uninstall:
     @echo Removing binaries...
-    @for %%G in ($(TO_BIN)) do del /F "%%G" "$(BINDIR)\%%G"
+    @for %%G in ($(TO_BIN)) do del /F "$(BINDIR)\%%G"
     @echo Removing headers...
-    @for %%G in ($(TO_INCLUDE)) do del /F "$(SOURCE_ROOT)\src\%%G" "$(INCLUDEDIR)\%%G"
+    @for %%G in ($(TO_INCLUDE)) do del /F "$(INCLUDEDIR)\%%G"
     @echo Removing libraries...
-    @for %%G in ($(TO_LIB)) do del /F "%%G" "$(LIBDIR)\%%G"
+    @for %%G in ($(TO_LIB)) do del /F "$(LIBDIR)\%%G"
 
 install: all
     @echo Creating destination directory for binaries...
