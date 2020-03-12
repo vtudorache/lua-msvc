@@ -5,13 +5,14 @@ INCLUDEDIR=     $(INSTALL_ROOT)\include
 LIBDIR=         $(INSTALL_ROOT)\lib
 
 LUA_NAME=       lua.exe
-LUA_LIB_NAME=   lua.lib
+LUA_LIB_NAME=   lua53.lib
+LUA_DLL_NAME=   lua53.dll
 
 LUAC_NAME=      luac.exe
 
 SOURCE_ROOT=    $(MAKEDIR)\..
 
-CFLAGS=/O2 /TC /MD /DLUA_COMPAT_5_2
+CFLAGS=/O2 /TC /MD /DLUA_COMPAT_5_2 /DLUA_BUILD_AS_DLL
 
 LUA_CORE_DEPS=lapi.obj lcode.obj lctype.obj ldebug.obj ldo.obj ldump.obj \
     lfunc.obj lgc.obj llex.obj lmem.obj lobject.obj lopcodes.obj \
@@ -26,7 +27,7 @@ LUA_DEPS=lua.obj
 
 LUAC_DEPS=luac.obj
 
-TO_BIN=$(LUA_NAME) $(LUAC_NAME)
+TO_BIN=$(LUA_NAME) $(LUAC_NAME) $(LUA_DLL_NAME)
 TO_INCLUDE=lua.h luaconf.h lualib.h lauxlib.h lua.hpp
 TO_LIB=$(LUA_LIB_NAME)
 
@@ -39,6 +40,7 @@ cleanobj:
 clean: cleanobj
     @echo Cleaning binaries and libraries...
     @del /F $(LUA_NAME) $(LUAC_NAME) $(LUA_LIB_NAME)
+    @del /F *.exp
 
 install: all
     @echo Creating destination directory for binaries...
@@ -54,15 +56,17 @@ install: all
     @echo Copying libraries...
     @for %%G in ($(TO_LIB)) do copy /Y "%%G" "$(LIBDIR)\%%G"
 
+$(LUA_DLL_NAME): $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
+    link.exe /DLL /OUT:$(LUA_DLL_NAME) /IMPLIB:$(LUA_LIB_NAME) $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
+
+$(LUA_LIB_NAME): $(LUA_DLL_NAME)
+
 $(LUA_NAME): $(LUA_DEPS) $(LUA_LIB_NAME)
     link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_LIB_NAME)
 
 $(LUAC_NAME): $(LUAC_DEPS) $(LUA_LIB_NAME)
     link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_LIB_NAME)
     
-$(LUA_LIB_NAME): $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
-    lib.exe /OUT:$(LUA_LIB_NAME) $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
-
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
     {$(SOURCE_ROOT)\src}lua.h \
