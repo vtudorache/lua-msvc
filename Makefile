@@ -64,8 +64,8 @@ $(LUA_LIB_NAME): $(LUA_DLL_NAME)
 $(LUA_NAME): $(LUA_DEPS) $(LUA_LIB_NAME)
     link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_LIB_NAME)
 
-$(LUAC_NAME): $(LUAC_DEPS) $(LUA_LIB_NAME)
-    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_LIB_NAME)
+$(LUAC_NAME): $(LUAC_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
+    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
     
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
