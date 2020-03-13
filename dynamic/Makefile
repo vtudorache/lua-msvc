@@ -43,7 +43,7 @@ cleanobj:
 clean: cleanobj
     @echo Cleaning binaries and libraries...
     @del /F $(LUA_NAME) $(LUAC_NAME) $(LUA_DLL_NAME) $(LUA_LIB_NAME)
-    @del /F *.exp *.lib 
+    @del /F *.exp
 
 install: all
     @echo Creating destination directory for binaries...
