@@ -6,7 +6,8 @@ This repository contains a Makefile to use with _Microsoft Visual Studio_ (or Co
 
 ## Example of basic usage (for Lua 5.3.5):
 
-Extract lua-5.3.5.tar.gz to lua-5.3.5 and change to that directory. Next, you have two options. The simplest, if you have Git installed, is to execute `git clone https://github.com/vtudorache/lua-msvc.git msvc` at the command prompt. The other is to create a subdirectory named, let's say, `msvc` (it can have any name), then change to the created directory (`msvc` in this example) and then copy Makefile here. Then execute:
+Extract lua-5.3.5.tar.gz to lua-5.3.5 and change to that directory. Next, you have two options. The simplest, if you have Git installed, is to execute `git clone https://github.com/vtudorache/lua-msvc.git msvc` at the command prompt. The other is to create a subdirectory named, let's say, `msvc` (it can have any name). 
+The created (or cloned) directory has two subdirectories, `static` and `dynamic`, according to the link type. From each subdirectory you can execute:
 
 `nmake install`
 
@@ -14,7 +15,7 @@ at the command prompt. This will install Lua to `C:\Lua53` as defined in the Mak
 
 ## Advanced usage:
 
-You can make an independent build directory and copy there the Makefile. Then from that directory, execute:
+You can make an independent build directory and copy there the Makefile from the `static` or `dynamic` subdirectory. Then from the build directory, execute:
 
 `nmake install INSTALL_ROOT=%PATH_TO_INSTALL_ROOT% SOURCE_ROOT=%PATH_TO_SOURCE_ROOT%`
 
