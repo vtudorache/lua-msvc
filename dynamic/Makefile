@@ -67,8 +67,8 @@ $(LUA_LIB_NAME): $(LUA_DLL_NAME)
 $(LUA_NAME): $(LUA_DLL_NAME) $(LUA_DEPS)
     link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_LIB_NAME)
 
-$(LUAC_NAME): $(LUAC_DEPS) $(BASE_DEPS)
-    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(BASE_DEPS)
+$(LUAC_NAME): $(LUAC_DEPS) lopcodes.obj ldump.obj $(LUA_LIB_NAME)
+    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) lopcodes.obj ldump.obj $(LUA_LIB_NAME)
     
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
