@@ -60,7 +60,7 @@ install: all
     @for %%G in ($(TO_LIB)) do copy /Y "%%G" "$(LIBDIR)\%%G"
 
 $(LUA_DLL_NAME): 
-    nmake /A CFLAGS="$(CFLAGS /DLUA_BUILD_AS_DLL)" $(BASE_DEPS)
+    nmake /A CFLAGS="$(CFLAGS) /DLUA_BUILD_AS_DLL" $(BASE_DEPS)
     link.exe /DLL /IMPLIB:$(LUA_LIB_NAME) /OUT:$(LUA_DLL_NAME) $(BASE_DEPS)
 
 $(LUA_LIB_NAME): $(LUA_DLL_NAME)
