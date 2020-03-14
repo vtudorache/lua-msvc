@@ -28,7 +28,7 @@ ALL_DEPS=$(LUA_LIB_DEPS) $(LUA_DEPS) $(LUAC_DEPS)
 
 TO_BIN=$(LUA_NAME) $(LUAC_NAME) $(LUA_DLL_NAME)
 TO_INCLUDE=lua.h luaconf.h lualib.h lauxlib.h lua.hpp
-TO_LIB=$(LUA_LIB_NAME) $(LUA_EXP_NAME)
+TO_LIB=$(LUA_LIB_NAME)
 
 all: $(LUA_NAME) $(LUAC_NAME)
 
