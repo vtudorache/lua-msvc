@@ -30,7 +30,7 @@ TO_BIN=$(LUA_NAME) $(LUAC_NAME)
 TO_INCLUDE=lua.h luaconf.h lualib.h lauxlib.h lua.hpp
 TO_LIB=$(LUA_LIB_NAME)
 
-all: $(LUA_NAME) $(LUAC_NAME)
+all: $(LUA_LIB_NAME) $(LUA_NAME) $(LUAC_NAME)
 
 cleanobj:
     @echo Cleaning object files...
