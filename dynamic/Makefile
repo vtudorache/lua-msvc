@@ -13,32 +13,28 @@ SOURCE_ROOT=    $(MAKEDIR)\..\..
 
 CFLAGS=/O2 /TC /MD /DLUA_COMPAT_5_2
 
-LUA_CORE_DEPS=lapi.obj lcode.obj lctype.obj ldebug.obj ldo.obj ldump.obj \
+LUA_LIB_DEPS=lapi.obj lcode.obj lctype.obj ldebug.obj ldo.obj ldump.obj \
     lfunc.obj lgc.obj llex.obj lmem.obj lobject.obj lopcodes.obj \
     lparser.obj lstate.obj lstring.obj ltable.obj ltm.obj lundump.obj \
-    lvm.obj lzio.obj
-    
-LUA_LIB_DEPS=lauxlib.obj lbaselib.obj lbitlib.obj lcorolib.obj ldblib.obj \
+    lvm.obj lzio.obj lauxlib.obj lbaselib.obj lbitlib.obj lcorolib.obj ldblib.obj \
     liolib.obj lmathlib.obj loslib.obj lstrlib.obj ltablib.obj \
     lutf8lib.obj loadlib.obj linit.obj
-
-BASE_DEPS=$(LUA_CORE_DEPS) $(LUA_LIB_DEPS)
 
 LUA_DEPS=lua.obj
 
 LUAC_DEPS=luac.obj
 
-ALL_DEPS=$(BASE_DEPS) $(LUA_DEPS) $(LUAC_DEPS)
+ALL_DEPS=$(LUA_LIB_DEPS) $(LUA_DEPS) $(LUAC_DEPS)
 
 TO_BIN=$(LUA_NAME) $(LUAC_NAME) $(LUA_DLL_NAME)
 TO_INCLUDE=lua.h luaconf.h lualib.h lauxlib.h lua.hpp
-TO_LIB=$(LUA_LIB_NAME)
+TO_LIB=$(LUA_LIB_NAME) $(LUA_EXP_NAME)
 
 all: $(LUA_NAME) $(LUAC_NAME)
 
 cleanobj:
     @echo Cleaning object files...
-    @del /F $(LUA_DEPS) $(LUAC_DEPS) $(BASE_DEPS)
+    @del /F $(LUA_DEPS) $(LUAC_DEPS) $(LUA_LIB_DEPS)
 
 clean: cleanobj
     @echo Cleaning binaries and libraries...
@@ -60,8 +56,8 @@ install: all
     @for %%G in ($(TO_LIB)) do copy /Y "%%G" "$(LIBDIR)\%%G"
 
 $(LUA_DLL_NAME): 
-    nmake /A CFLAGS="$(CFLAGS) /DLUA_BUILD_AS_DLL" $(BASE_DEPS)
-    link.exe /DLL /IMPLIB:$(LUA_LIB_NAME) /OUT:$(LUA_DLL_NAME) $(BASE_DEPS)
+    nmake /A CFLAGS="$(CFLAGS) /DLUA_BUILD_AS_DLL" $(LUA_LIB_DEPS)
+    link.exe /DLL /IMPLIB:$(LUA_LIB_NAME) /OUT:$(LUA_DLL_NAME) $(LUA_LIB_DEPS)
 
 $(LUA_LIB_NAME): $(LUA_DLL_NAME)
 
@@ -70,8 +66,8 @@ $(LUA_NAME): $(LUA_DLL_NAME)
     link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_LIB_NAME)
 
 $(LUAC_NAME): $(LUAC_DEPS)
-    nmake /A $(BASE_DEPS)
-    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(BASE_DEPS)
+    nmake /A $(LUA_LIB_DEPS)
+    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_LIB_DEPS)
     
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
