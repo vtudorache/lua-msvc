@@ -11,7 +11,7 @@ LUAC_NAME=      luac.exe
 
 SOURCE_ROOT=    $(MAKEDIR)\..\..
 
-CFLAGS=/O2 /TC /MD /DLUA_COMPAT_5_2 /DLUA_BUILD_AS_DLL
+CFLAGS=/O2 /TC /MD /DLUA_COMPAT_5_2
 
 LUA_CORE_DEPS=lapi.obj lcode.obj lctype.obj ldebug.obj ldo.obj ldump.obj \
     lfunc.obj lgc.obj llex.obj lmem.obj lobject.obj lopcodes.obj \
@@ -59,16 +59,19 @@ install: all
     @echo Copying libraries...
     @for %%G in ($(TO_LIB)) do copy /Y "%%G" "$(LIBDIR)\%%G"
 
-$(LUA_DLL_NAME): $(BASE_DEPS)
+$(LUA_DLL_NAME): 
+    nmake /A CFLAGS="$(CFLAGS /DLUA_BUILD_AS_DLL)" $(BASE_DEPS)
     link.exe /DLL /IMPLIB:$(LUA_LIB_NAME) /OUT:$(LUA_DLL_NAME) $(BASE_DEPS)
 
 $(LUA_LIB_NAME): $(LUA_DLL_NAME)
 
-$(LUA_NAME): $(LUA_DLL_NAME) $(LUA_DEPS)
+$(LUA_NAME): $(LUA_DLL_NAME) 
+    nmake /A CFLAGS="$(CFLAGS /DLUA_BUILD_AS_DLL)" $(LUA_DEPS)
     link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_LIB_NAME)
 
-$(LUAC_NAME): $(LUAC_DEPS) lopcodes.obj ldump.obj $(LUA_LIB_NAME)
-    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) lopcodes.obj ldump.obj $(LUA_LIB_NAME)
+$(LUAC_NAME): $(LUAC_DEPS)
+    nmake /A $(BASE_DEPS)
+    link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(BASE_DEPS)
     
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
