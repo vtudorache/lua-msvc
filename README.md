@@ -27,7 +27,7 @@ Makefile.
 ## Advanced usage:
 
 You can make an independent build directory and copy there the Makefile from 
-the `static` or `dynamic` subdirectory. Then from the build directory, execute:
+the `static` subdirectory. Then from the build directory, execute:
 
 `nmake install INSTALL_ROOT=%PATH_TO_INSTALL_ROOT% SOURCE_ROOT=%PATH_TO_SOURCE_ROOT%`
 
