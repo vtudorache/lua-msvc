@@ -29,10 +29,7 @@ Makefile.
 You can make an independent build directory and copy there the Makefile from 
 the `static` or `dynamic` subdirectory. Then from the build directory, execute:
 
-```
-nmake install INSTALL_ROOT=%PATH_TO_INSTALL_ROOT% \
-    SOURCE_ROOT=%PATH_TO_SOURCE_ROOT%
-```
+`nmake install INSTALL_ROOT=%PATH_TO_INSTALL_ROOT% SOURCE_ROOT=%PATH_TO_SOURCE_ROOT%`
 
 where the variable `%PATH_TO_SOURCE_ROOT%` must contain the path to a valid Lua 
 source tree (containing a `src` directory) and `%PATH_TO_INSTALL_ROOT%` is the 
