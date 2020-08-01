@@ -9,7 +9,7 @@ LUA_DLL_NAME=   lua53.dll
 LUA_LIB_NAME=   lua53.lib
 LUAC_NAME=      luac.exe
 
-SOURCE_ROOT=    $(MAKEDIR)\..\..
+SOURCE_ROOT=    $(MAKEDIR)\..\..\..
 
 CFLAGS=/O2 /TC /MD /DLUA_COMPAT_5_2
 
