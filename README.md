@@ -36,3 +36,11 @@ source tree (containing a `src` directory) and `%PATH_TO_INSTALL_ROOT%` is the
 desired path for the installed programs.
 
 Enjoy!
+
+## N.B.
+
+When using the Makefile for the `dynamic` build and the SOURCE_ROOT option, the 
+linker gives a fatal error U1073, error that doesn't appear when using the 
+`static` directory. These errors do not appear when using the Makefile from
+within the source tree as described above. I'm currently investigating the
+reason.

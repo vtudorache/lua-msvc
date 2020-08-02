@@ -62,7 +62,7 @@ $(LUA_NAME): $(LUA_DEPS) $(LUA_LIB_DEPS)
 
 $(LUAC_NAME): $(LUAC_DEPS) $(LUA_LIB_DEPS)
     link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_LIB_DEPS)
-    
+
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
     {$(SOURCE_ROOT)\src}lprefix.h \
     {$(SOURCE_ROOT)\src}lua.h \
