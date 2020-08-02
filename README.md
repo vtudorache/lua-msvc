@@ -27,7 +27,8 @@ Makefile.
 ## Advanced usage:
 
 You can make an independent build directory and copy there the Makefile from 
-the `static` subdirectory. Then from the build directory, execute:
+the `static` or `dynamic` subdirectories respectively. 
+Then from the build directory, execute:
 
 `nmake install INSTALL_ROOT=%PATH_TO_INSTALL_ROOT% SOURCE_ROOT=%PATH_TO_SOURCE_ROOT%`
 
@@ -37,10 +38,3 @@ desired path for the installed programs.
 
 Enjoy!
 
-## N.B.
-
-When using the Makefile for the `dynamic` build and the SOURCE_ROOT option, the 
-linker gives a fatal error U1073, error that doesn't appear when using the 
-`static` directory. These errors do not appear when using the Makefile from
-within the source tree as described above. I'm currently investigating the
-reason.

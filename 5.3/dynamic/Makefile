@@ -56,17 +56,17 @@ install: all
     @for %%G in ($(TO_LIB)) do copy /Y "%%G" "$(LIBDIR)\%%G"
 
 $(LUA_DLL_NAME): 
-    nmake /A CFLAGS="$(CFLAGS) /DLUA_BUILD_AS_DLL" $(LUA_LIB_DEPS)
+    nmake /A CFLAGS="$(CFLAGS) /DLUA_BUILD_AS_DLL" SOURCE_ROOT="$(SOURCE_ROOT)" $(LUA_LIB_DEPS)
     link.exe /DLL /IMPLIB:$(LUA_LIB_NAME) /OUT:$(LUA_DLL_NAME) $(LUA_LIB_DEPS)
 
 $(LUA_LIB_NAME): $(LUA_DLL_NAME)
 
 $(LUA_NAME): $(LUA_DLL_NAME) 
-    nmake /A CFLAGS="$(CFLAGS) /DLUA_BUILD_AS_DLL" $(LUA_DEPS)
+    nmake /A CFLAGS="$(CFLAGS) /DLUA_BUILD_AS_DLL" SOURCE_ROOT="$(SOURCE_ROOT)" $(LUA_DEPS)
     link.exe /OUT:$(LUA_NAME) $(LUA_DEPS) $(LUA_LIB_NAME)
 
 $(LUAC_NAME): $(LUAC_DEPS)
-    nmake /A $(LUA_LIB_DEPS)
+    nmake /A SOURCE_ROOT="$(SOURCE_ROOT)" $(LUA_LIB_DEPS)
     link.exe /OUT:$(LUAC_NAME) $(LUAC_DEPS) $(LUA_LIB_DEPS)
     
 lapi.obj: {$(SOURCE_ROOT)\src}lapi.c \
