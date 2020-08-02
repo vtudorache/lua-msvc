@@ -5,8 +5,8 @@ INCLUDEDIR=     $(INSTALL_ROOT)\include
 LIBDIR=         $(INSTALL_ROOT)\lib
 
 LUA_NAME=       lua.exe
-LUA_DLL_NAME=   lua54.dll
 LUA_LIB_NAME=   lua54.lib
+LUA_DLL_NAME=   lua54.dll
 LUAC_NAME=      luac.exe
 
 SOURCE_ROOT=    $(MAKEDIR)\..\..\..
