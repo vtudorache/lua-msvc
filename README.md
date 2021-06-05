@@ -6,6 +6,7 @@ This repository contains a Makefile to use with _Microsoft Visual Studio_ (or
 Command Line Tools) for building Lua on Windows. The Makefile must be used 
 from a __preconfigured Command Prompt__ (like one installed with the Command 
 Line Tools for Visual C++).
+Please observe Lua license at https://www.lua.org before using the files.
 
 ## Example of basic usage (for Lua 5.3.5):
 
